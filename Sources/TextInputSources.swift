@@ -16,6 +16,8 @@ public enum TextInputSourcesError: Error {
 }
 
 public struct TextInputSources {
+    private init() {}
+
     public static func find(filtering properties: [FilteringPropertyName: Any] = [:], includeAllInstalled: Bool = false) -> [InputSource] {
         var transformed: [AnyHashable: Any] = [:]
         for (key, value) in properties {
@@ -58,7 +60,7 @@ public struct TextInputSources {
 
     // MARK: - Select/Deselect/Enable/Disable
 
-    public func select(_ inputSource: InputSource) throws {
+    public static func select(_ inputSource: InputSource) throws {
         let status = TISSelectInputSource(inputSource.tisInputSource)
         switch status {
         case noErr:
@@ -70,7 +72,7 @@ public struct TextInputSources {
         }
     }
 
-    public func deselect(_ inputSource: InputSource) throws {
+    public static func deselect(_ inputSource: InputSource) throws {
         let status = TISDeselectInputSource(inputSource.tisInputSource)
         switch status {
         case noErr:
@@ -82,7 +84,7 @@ public struct TextInputSources {
         }
     }
 
-    public func enable(_ inputSource: InputSource) throws {
+    public static func enable(_ inputSource: InputSource) throws {
         let status = TISEnableInputSource(inputSource.tisInputSource)
         switch status {
         case noErr:
@@ -94,7 +96,7 @@ public struct TextInputSources {
         }
     }
 
-    public func disable(_ inputSource: InputSource) throws {
+    public static func disable(_ inputSource: InputSource) throws {
         let status = TISDisableInputSource(inputSource.tisInputSource)
         switch status {
         case noErr:
