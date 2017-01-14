@@ -27,7 +27,9 @@ public struct TextInputSources {
                 transformed[key.rawValue as String] = value
             }
         }
-        let inputSourceList = TISCreateInputSourceList(transformed.isEmpty ? nil : (transformed as CFDictionary), includeAllInstalled)!
+        guard let inputSourceList = TISCreateInputSourceList(transformed.isEmpty ? nil : (transformed as CFDictionary), includeAllInstalled) else {
+            return []
+        }
         return (takeValue(fromCreated: inputSourceList) as! [TISInputSource]).map(InputSource.init)
     }
 
